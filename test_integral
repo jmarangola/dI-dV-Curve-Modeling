@@ -10,7 +10,7 @@ upper_limit = 3;
 
 % Define g as the integral of f(x,y) dy from a to b
 x = -20:20
-g = @(y) (integral(@(x) g(x,y) , -inf, inf))
+g = @(y) (int(@(x) g(x,y) , -inf, inf))
 
 input = -20:0.1:20
 output = zeros(size(input))
