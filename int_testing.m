@@ -1,34 +1,59 @@
 % vpaintegral docs:
 % https://www.mathworks.com/help/symbolic/vpaintegral.html
-syms A x y
-assume(x, 'real');
-assume(A, 'real');
+
+syms w t y
+assume(t, 'real');
+assume(w, 'real');
 assume(y, 'real');
 
-% general form (using symbolic vars)
-g_gen = (((1)./(x.^3 + x)).* (((exp(-1.*i.*x.*A)) - 1)./(1 - exp(-1.*x))));
-% found a way to reliably and properly substitute variables in for symbolic
-% variables so that int function can work over a range of variables in a
-% loop or matrix
+% general form (using symbolic vars) 
+j_gen = (((1)./(w.^3 + w)).* (((exp(-1.*i.*w.*t)) - 1)./(1 - exp(-1.*w))));
 
-%Arange = -2000:1:2000
-% arbitrary value for now trying to get it to work for matrix of values for A
-g = vpaintegral(g_part, x, 0.0001, 10000) + y.*i
+result = zeros(401);
+dom = -200:1:200;
 
-% defining first integral from a->(b-delta) and second from (b+delta) to c where delta is arbitrarily small and b is a region of infinite discontinuity where the function is not differentiable
-% in the integral above, a and c are made arbitrarily large to approximate
-% right/left hand behavior as infinite bounds in vpa integral would make
-% later computations impossible by using the maximum possible number of function
-% calls in the stack frame
 
-%g_part = subs(g_gen, A, -0.3423)
+
+%for j=dom
+%    j_part = subs(j_gen, t, dom(n)); % substitute the nth element of dom into j_gen for symbolic var t
+%    result(n) = vpaintegral(j_part, w, 0.0001, inf);
+%    n = n+1 ; %increment n
+%end
+%disp(result)
+
+%j_part = subs(j_gen, t, 0.0)
+%j = vpaintegral(j_part, w, 0.0001, inf)
+upperbound = 20000
+spacing = 5;
+iteration = 1;
+current_value = 0
+start =900
+j_part = subs(j_gen, t, -1000)
+while (iteration * spacing < upperbound)
+current_value = current_value + vpaintegral(j_part, w, start + spacing*(iteration-1), spacing*iteration + start)
+%disp("lower bound");
+%disp(0.0001 + spacing*(iteration-1))
+%disp("upper bound")
+%disp(spacing*iteration + 0.0001)
+iteration = iteration+1;
+end
+disp(current_value)
+
+
+% for first and second integral later
+%j = vpaintegral(j_part, w, 0.0001, inf) + y.*i
+
 
 %P = vpaintegral(exp(g), A, 0.0001, 20000) + vpaintegral(exp(g), A, -0.0001, -20000)
 %P = vpaintegral(exp(g), A, 0.0001, 20000) 
-P = vpaintegral(exp(g), A, -inf, inf) 
+%P = vpaintegral(exp(g), A, -inf, -0.0001) +  vpaintegral(exp(g), A, 0.0001, inf)
+
+%T = vpaintegral(P*y/(exp(y)-1), y, 0.0001, 20000) + vpaintegral(P*y/(exp(y)-1), y%, -0.0001, -inf)
 
 
+%P = vpaintegral(exp(g), A, -9999999, -0.0001) +  vpaintegral(exp(g), A, 0.0001, 9999999)
 
+%T = vpaintegral(P*y/(exp(y)-1), y, 0.0001, 9999999) + vpaintegral(P*y/(exp(y)-1), y, -0.0001, -9999999)
 
 
 
