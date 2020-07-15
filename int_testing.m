@@ -1,20 +1,18 @@
 % vpaintegral docs:
 % https://www.mathworks.com/help/symbolic/vpaintegral.html
 
-syms w t y
+syms w t E q
 assume(t, 'real');
 assume(w, 'real');
-assume(y, 'real');
+assume(E, 'real');
 
 % general form (using symbolic vars) 
 j_gen = (((1)./(w.^3 + w)).* (((exp(-1.*i.*w.*t)) - 1)./(1 - exp(-1.*w))));
 
-%for j=dom
-%    j_part = subs(j_gen, t, dom(n)); % substitute the nth element of dom into j_gen for symbolic var t
-%    result(n) = vpaintegral(j_part, w, 0.0001, inf);
-%    n = n+1 ; %increment n
-%end
-%disp(result)
+
+
+
+
 
 %j_part = subs(j_gen, t, 0.0)
 %j = vpaintegral(j_part, w, 0.0001, inf)
@@ -35,22 +33,22 @@ j_gen = (((1)./(w.^3 + w)).* (((exp(-1.*i.*w.*t)) - 1)./(1 - exp(-1.*w))));
 %disp(spacing*iteration + 0.0001)
 %iteration = iteration+1;
 %end
-allt = -100:.1:100
+
+%begin J(t) plotting (j integrated with respect to w as a function of
+%t-----------------------------------------------------
+allt = -100:1:100
 output = []
 index = 1
 s = size(allt)
 while index <= s(2) % upper bound set by all t value vector
     j_particular = subs(j_gen, t, allt(index));
-    inta = vpaintegral(j_particular, w, 0.0001, inf) ;
-    intb = vpaintegral(j_particular, w, -0.0001, -inf);
-    result = inta + intb;
-    output(index) = result;
+    inta = vpaintegral(j_particular, w, 0.001, inf);
+    output(index) = inta;
     index = index + 1
 end
 
 
-
-
+%J(t) plotting (int with respect to w)------------------------
 
 % for first and second integral later
 %j = vpaintegral(j_part, w, 0.0001, inf) + y.*i

@@ -3,9 +3,6 @@
 j_t = @(w, t) (((1)./(w.^3 + w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp(-1.*w))));
 dom = -100:0.01:100;
 
-
-
-
 %total_t = various_t_down + various_t_up;
 
 
@@ -15,8 +12,8 @@ dom = -100:0.01:100;
 %s = size(various_t_down)
 %various_t_up = -1.*flip(various_t_down);
 %total_t = various_t_down + various_t_up;
-total_t = linspace(-50000, 50000, 100)
-
+total_t = linspace(-2000, 20000, 5)
+figure
 hold on
 for splot=total_t
     plot(dom, j_t(dom, splot));
