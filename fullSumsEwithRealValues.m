@@ -1,20 +1,19 @@
-clear all
 % Physical constants
-kb=1.381e-23;
-hbar = 1.0545718e-34;
-h = 0;
-R_k = 0;
+kb=1.381e-23; % K_b
+hbar = 1.0545718e-34; % reduced planck constant 
+h = 6.62607015e-34; % planck constant
+e = 1.602e-19 % elementary charge
+R_k = h/(e^2); % R_k
 
 % Physical Parameters
 T = 7; % in K
 C = 8e-18;
+C_T = 0;
 R = 0.3*R_k;
 
-
 % two functions (no integration)
-j = @(w, t) (((1)./(w.^3 + w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp(-1.*h.*w))));
+j = @(w, t) 2.*(((1)./(w.^3 + w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp((-1.*h.*w)./(kb*T)))));
 p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
-
 
 % differential step variables
 dx_t = 0.1;
