@@ -17,10 +17,13 @@ outputs = []
 
 sum_ = 0
 sum_2 = 0
+o_1 = []
+o_2 = []
+o_3 = []
 for E in E_:
     for t in t_:
         for w in Omega_:
-            sum_ += ((((1)/(w**3 + w))* (( (exp(-1*1j*w*t)) - 1) / (1 - exp(-1*w)) ))*dx)
+            sum_ += ((((1)/(w**3 + w))* (( (exp(-1*1j*w*t)) - 1) / (1 - exp(-1*w)) ).real)*dx)
         sum_2 += (exp(sum_ + 1j*E*t)*dx)
         sum_ = 0
     print(f"E: {E}")
