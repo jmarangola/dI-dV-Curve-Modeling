@@ -7,9 +7,9 @@ p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
 kb=1.381e-23;
 
 % differential step variables
-dx_t = 0.1;
-dx_w = 0.1;
-dx_E = 0.1;
+dx_t = 0.01;
+dx_w = 0.01;
+dx_E = 0.001;
 
 % Bounds of integration
 tbounds1 = -20:dx_t:20;
