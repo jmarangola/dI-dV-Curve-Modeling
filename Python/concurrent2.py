@@ -16,7 +16,12 @@ def compute(x):
     values[x[0]] = x[1]
 
 
-def download_all_sites(sites):
+def download_all_sites(subdomains):
+    with concurrent.futures.ThreadPoolExecutor(max_workers=divisions) as executor:
+        executor.map(compute, subdomains)
+
+
+if __name__ == "__main__":
     LOWER = -200
     UPPER = 200
     domain = list(range(LOWER, UPPER, DX))
@@ -27,11 +32,4 @@ def download_all_sites(sites):
     while index < len(domain): # delegate to subdomains
         subdomain = domain[index:index+displacement]
         index += displacement
-    
-    with concurrent.futures.ThreadPoolExecutor(max_workers=divisions) as executor:
-        executor.map(compute, subdomains)
-
-
-if __name__ == "__main__":
-    
-    print(list(enumerate(x)))
+    print(list(enumerate(subdomains)))
