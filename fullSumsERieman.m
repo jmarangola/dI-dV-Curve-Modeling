@@ -7,9 +7,9 @@ p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
 kb=1.381e-23;
 
 % differential step variables
-dx_t = 0.1;
-dx_w = 0.1;
-dx_E = 0.1;
+dx_t = 0.01;
+dx_w = 0.01;
+dx_E = 0.01;
 
 % Bounds of integration
 tbounds1 = -20:dx_t:20;
@@ -17,8 +17,8 @@ wbounds = 0.001:dx_w:20; % cannot do zero or there is infinite singularity div b
 
 % Domain/output must be dimensionally consistent for plot
 clear output
-domain = -200:1:200
-output = -200:1:200
+domain = -200:.01:200
+output = -200:.01:200
 
 % loop vars
 sum = 0;

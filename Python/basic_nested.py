@@ -9,7 +9,7 @@ x = 5
 y = 10
 
 
-dx = .1
+dx = 1
 Omega_ = np.arange(0.001, 20, dx)
 t_ = np.arange(-20, 20, dx)
 E_ = np.arange(-200, 200, 1)
