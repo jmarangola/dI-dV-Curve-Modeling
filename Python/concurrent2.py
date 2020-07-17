@@ -11,7 +11,7 @@ import matplotlib
 
 thread_local = threading.local()
 DX = 1
-output = []
+output = dict()
 t_ = np.arange(-20, 20, DX)
 Omega_ = np.arange(0.001, 20, DX)
 
@@ -33,7 +33,7 @@ def compute(x):
             o_1 = []
         current.append(sum(o_2))
         o_2 = []
-    output.append([position, current])
+    output[position] = current
 
 
 def delegate(subdomains):
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     domain = list(np.arange(LOWER, UPPER, DX))
     #print(f"domain: {domain}")
     subdomains = []
-    divisions = 20
+    divisions = 200
     displacement = int(abs(LOWER-UPPER)/divisions)
     pos, index = 0, 0
     while pos < len(domain): # delegate to subdomains
@@ -57,17 +57,16 @@ if __name__ == "__main__":
     q = delegate(list(enumerate(subdomains)))
     
 #print(f"sauce: {list(enumerate(subdomains))}")
-output = output.sort(key=lambda x:x[0], reverse=False) # lambda sort nested array
-print(output)
+#output = output.sort(key=lambda x:x[0], reverse=False) # lambda sort nested array
+#print(output)
 #output = [x[1] for x in output] # list comprehension to concat and joing
 #list(join(output))
-
 total = []
-print(output)
-for el in output:
-    total.append(el[1])
+for element in range(200):
+    total.extend(output[element])
+    
 print(total)
-plt.plot(domain, output)
+plt.plot(domain, total)
 plt.ylabel('P(E)')
 plt.show()
 

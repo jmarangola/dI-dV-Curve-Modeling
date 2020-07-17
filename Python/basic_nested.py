@@ -9,7 +9,7 @@ x = 5
 y = 10
 
 
-dx = 1
+dx = .1
 Omega_ = np.arange(0.001, 20, dx)
 t_ = np.arange(-20, 20, dx)
 E_ = np.arange(-200, 200, 1)
@@ -31,7 +31,7 @@ for E in E_:
     sum_2 = 0
     
 
-plt.plot(t_, outputs)
+plt.plot(E_, outputs)
 plt.ylabel('P(E)')
 plt.show()
 
