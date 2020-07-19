@@ -1,4 +1,4 @@
-
+%9:13
 % two functions (no integration)
 j = @(w, t) (((1)./(w.^3 + w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp(-1.*w))));
 p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
@@ -7,7 +7,7 @@ p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
 kb=1.381e-23;
 
 % differential step variables
-dx_t = .001;
+dx_t = .01;
 dx_w = .01;
 dx_E = 1;
 

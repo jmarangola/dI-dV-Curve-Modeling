@@ -5,20 +5,25 @@ h = 6.62607015e-34; % planck constant
 e = 1.602e-19 % elementary charge
 R_k = h/(e^2); % R_k
 
+
 % Physical Parameters
 T = 7; % in K
 C = 8e-18;
-C_T = 0;
+C_T = 8e-18;
 R = 0.3*R_k;
 
-% two functions (no integration)
-j = @(w, t) 2.*(((1)./(w.^3 + w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp((-1.*h.*w)./(kb*T)))));
+% ReZ(w):
+ReZw = @(w) ( (R.^-1)./(R_k).*((w.^2.*(C_T + C).^2 ) + R.^(-2) ) )
+
+% two functions J(t) and P(E)
+
+j = @(w, t) 2 .* ReZw(w) .* (((1)./(w.^3 + w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp((-1.*h.*w)./(kb*T)))));
 p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
 
 % differential step variables
 dx_t = 0.1;
 dx_w = 0.1;
-dx_E = 0.1;
+dx_E = 1;
 
 % Bounds of integration
 tbounds1 = -20:dx_t:20;
