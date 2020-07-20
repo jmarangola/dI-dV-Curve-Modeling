@@ -21,7 +21,7 @@ j = @(w, t) 2 .* ReZw(w) .* (((1)./(w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp((
 p = @(E, t) (exp(j(w, t) + 1i.*E.*t/hbar))
 
 % differential step variables
-dx_t = 0.1;
+dx_t = 0.01;
 dx_w = 0.1;
 dx_E = 1;
 
@@ -31,8 +31,8 @@ wbounds = 0.001:dx_w:30; % cannot do zero or there is infinite singularity div b
 
 % Domain/output must be dimensionally consistent for plot
 clear output
-domain = -200:1:200
-output = -200:1:200
+domain = -200e-23:1e-23:200e-23
+output = -200e-23:1e-23:200e-23
 
 % loop vars
 sum = 0;
@@ -45,7 +45,7 @@ for E=domain
         for w=wbounds
             sum = sum + (j(w, t)*dx_w);
         end
-        sum2 = sum2 + (1/(2*pi*hbar))*(exp(sum + 1i.*E.*t/hbar)*dx_t);
+        sum2 = sum2 + (1/(2*pi*hbar))*(exp(sum + 1i.*E.*t/hbar))*dx_t;
         sum = 0;
     end
     output(k) = sum2;
@@ -55,6 +55,10 @@ end
 
 figure
 plot(domain, output)
+title('P(E) for plot E')
+xlabel('E (mev) ') 
+ylabel('P')
+
 
 
     
