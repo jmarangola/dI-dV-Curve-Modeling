@@ -18,8 +18,8 @@ ReZw = @(w) ( (R.^-1)./(R_k).*((w.^2.*(C_T + C).^2 ) + R.^(-2) ) )
 % two functions J(t) and P(E)
 
 j = @(w, t) 2 .* ReZw(w) .* (((1)./(w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp((-1.*h.*w)./(kb*T)))));
-p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
-
+p = @(E, t) 1/2*pi*hbar*(exp(j(w, t) + 1i.*E.*t))
+T = 
 % differential step variables
 dx_t = 0.1;
 dx_w = 0.1;
@@ -34,26 +34,40 @@ clear output
 Ebounds = -200:1:200
 output = -200:1:200
 
+Vbounds = -50:1:50
+
+
 % loop vars
 sum = 0;
 sum2 = 0;
 sum3 = 0;
+sum4 = 0;
 
-% ßiteration vars: matlab is 1 indexed not zero
+% iteration vars: matlab is 1 indexed not zero
 k = 1;
 
-for 
-for E=Ebounds
-    for t=tbounds1
-        for w=wbounds
-            sum = sum + (j(w, t)*dx_w);
+for V=Vbounds
+    
+    for E=Ebounds
+        
+        for t=tbounds1
+            
+            for w=wbounds
+                sum = sum + (j(w, t)*dx_w);
+            
+            end
+            sum2 = sum2 + 1/2*pi*hbar*(exp(sum + 1i.*E.*t)*dx_t);
+            sum = 0;
+        
         end
-        sum2 = sum2 + (exp(sum + 1i.*E.*t)*dx_t);
-        sum = 0;
+        sum3 = sum3 + sum2;
+        sum2 = 0; % set sum2 back to zero
+        k = k + 1
+   
     end
-    sum3 = sum3 + sum2;
-    sum2 = 0; % set sum2 back to zero
-    k = k + 1
+    sum4 = sum4 + sum3;
+    sum3 = 0;
+    
 end
 
 figure

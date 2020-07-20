@@ -9,7 +9,7 @@ R_k = h/(e^2); % R_k
 % Physical Parameters
 T = 7; % in K
 C = 8e-18;
-C_T = 8e-18;
+C_T = 8e-15;
 R = 0.3*R_k;
 
 % ReZ(w):
@@ -18,7 +18,7 @@ ReZw = @(w) ( (R.^-1)./(R_k).*((w.^2.*(C_T + C).^2 ) + R.^(-2) ) )
 % two functions J(t) and P(E)
 
 j = @(w, t) 2 .* ReZw(w) .* (((1)./(w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp((-1.*h.*w)./(kb*T)))));
-p = @(E, t) (exp(j(w, t) + 1i.*E.*t))
+p = @(E, t) (exp(j(w, t) + 1i.*E.*t/hbar))
 
 % differential step variables
 dx_t = 0.1;
@@ -27,7 +27,7 @@ dx_E = 1;
 
 % Bounds of integration
 tbounds1 = -50:dx_t:50;
-wbounds = 0.001:dx_w:40; % cannot do zero or there is infinite singularity div by 0
+wbounds = 0.001:dx_w:30; % cannot do zero or there is infinite singularity div by 0
 
 % Domain/output must be dimensionally consistent for plot
 clear output
@@ -45,7 +45,7 @@ for E=domain
         for w=wbounds
             sum = sum + (j(w, t)*dx_w);
         end
-        sum2 = sum2 + (exp(sum + 1i.*E.*t)*dx_t);
+        sum2 = sum2 + (1/(2*pi*hbar))*(exp(sum + 1i.*E.*t/hbar)*dx_t);
         sum = 0;
     end
     output(k) = sum2;
