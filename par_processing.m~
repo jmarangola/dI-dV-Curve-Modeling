@@ -1,0 +1,6 @@
+
+function result = par_processing(data)
+    parfor x=1:
+        disp(x);
+    end
+result = data(1);
