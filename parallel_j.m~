@@ -9,7 +9,8 @@ function result = parallel_j(t)
     wb = 0.001:1:20
     parfor i=vec % single step index iteration vector for parfor
         t = tbounds(i);
-        sum = integrate_omega(wb, t) % i th element of vtbounds is current t
+  
+        sum = integrate_omega(, t) % i th element of vtbounds is current t
         sum2 = sum2 + (1/(2*pi*hbar))*(exp(sum + 1i.*E.*t/hbar))*dx_t;
     end
     
