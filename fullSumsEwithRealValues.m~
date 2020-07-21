@@ -15,7 +15,7 @@ R = 0.3*R_k;
 % Plot generation paramters:
 START = -200
 STOP = 200
-RESOLUTION = 400 % Number of points sampled evenly between (START, STOP)
+RESOLUTION = 400
 
 % ReZ(w):
 ReZw = @(w) ( (R.^-1)./(R_k).*((w.^2.*(C_T + C).^2 ) + R.^(-2) ) )
@@ -26,7 +26,7 @@ j = @(w, t) -2 .* ReZw(w) .* (((1)./(w)).* (((exp(-1.*1i.*w.*t)) - 1)./(1 - exp(
 p = @(E, t) (exp(j(w, t) + 1i.*E.*t/hbar))
 
 % differential step variables
-dx_t = 0.01;
+dx_t = 0.1;
 dx_w = 0.1;
 dx_E = 1;
 
@@ -37,7 +37,7 @@ wbounds = 0.001:dx_w:30; % cannot do zero or there is infinite singularity div b
 % Domain/output meV
 clear output
 
-% Plot bounds
+% Plot 
 domain = START:(abs(START-STOP)/RESOLUTION):STOP
 output = START:(abs(START-STOP)/RESOLUTION):STOP
 
