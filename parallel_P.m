@@ -1,6 +1,6 @@
 % Function plots P(E) using local parallel pooling to optimize efficiency
 % Requires latest version of Matlab parallel computing toolbox
-function parallel_P() 
+function res = parallel_P() 
     kb=1.381e-23; % K_b
     hbar = 1.0545718e-34; % reduced planck constant 
     h = 6.62607015e-34; % planck constant
@@ -23,11 +23,12 @@ function parallel_P()
     % Plot results
     figure
     plot(Ebounds, output);
+    %res = output;
 
 function out = integrate_p(E) % Function takes parameter of E and returns P(E) 
     hbar = 1.0545718e-34; % constants redeclared because of scope issues
     h = 6.62607015e-34;
-    dx_t = .01;
+    dx_t = .009;
     tbounds = -20:dx_t:20;
     vec1 = 1:length(tbounds);
     sum2 = 0;

@@ -15,25 +15,10 @@ R = 0.3*R_k;
 % End constants ------
 
 % store values:
-dx_E = 0.1
-p_sum = 0;
-Vvals = -200:1:200
-Vstep = 1:1:length(Vvals);
-op = -200:1:200;
-Evals = -50:dx_E:50
-
-for k=Vstep
-    V = Vvals(k); % define V for iteration
-    k
-    for E=Evals
-        p = int_Ppar(e*V + E);
-    end
-    op(k) = p; % assign to output
-    
-end
-
-figure
-plot(Vvals, op);
+for V=Vvals
+	for E=Evals
+        
+        p_sum = int_Ppar(E);
         
 
 

@@ -48,18 +48,25 @@ sum2 = 0;
 % ßiteration vars: matlab is 1 indexed not zero
 k = 1;
 for E=domain
+    
     for t=tbounds1
+        
         for w=wbounds
             sum = sum + (j(w, t)*dx_w);
         end
+        
         sum2 = sum2 + (1/(2*pi*hbar))*(exp(sum + 1i.*E.*t/hbar))*dx_t;
         sum = 0;
+        
     end
+    
     output(k) = sum2;
     sum2 = 0; % set sum2 back to zero
     k = k + 1
+    
 end
 
+% Generate plot
 figure
 plot(domain, output)
 title('P(E) for plot E')
