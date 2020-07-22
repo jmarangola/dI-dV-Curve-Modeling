@@ -28,7 +28,7 @@ p = @(E, t) (exp(j(w, t) + 1i.*E.*t/hbar))
 % differential step variables
 dx_t = 0.01;
 dx_w = 0.1;
-dx_E = 1;
+dx_E = 0.1;
 
 % Bounds of integration
 tbounds1 = -30:dx_t:30;
